@@ -16,12 +16,25 @@ export default createStore({
     },
   },
   actions: {
-    async fetchUsers(context) {
+    async fetchUsers({ commit }, payload) {
+      console.log(payload);
       await axios
         .get("https://jsonplaceholder.typicode.com/users")
         .then((response) => {
           if (response.status === 200) {
-            context.commit("SET_USERS", response.data);
+            commit("SET_USERS", response.data);
+          } else {
+            console.error(response.error);
+          }
+        });
+    },
+    async fetchTest(payload) {
+      console.log(payload);
+      await axios
+        .get("https://jsonplaceholder.typicode.com/posts")
+        .then((response) => {
+          if (response.status === 200) {
+            console.log(response.data)
           } else {
             console.error(response.error);
           }

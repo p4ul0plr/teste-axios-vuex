@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>{{title}}</h1>
     <Users :users="users" />
+    <button @click.prevent="fetchTest()">Teste</button>
   </div>
 </template>
 
@@ -19,10 +20,16 @@
       };
     },
     async created() {
-      await this.$store.dispatch("fetchUsers");
+      await this.$store.dispatch("fetchUsers", {name: "Teste"});
       this.users = this.$store.getters.getUsers;
     },
-    computed: {},
-    methods: {},
+    computed: {
+      
+    },
+    methods: {
+      fetchTest() {
+        this.$store.dispatch("fetchTest", {name: "Teste1"})
+      }
+    },
   };
 </script>

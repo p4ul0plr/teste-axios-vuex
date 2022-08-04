@@ -4,6 +4,7 @@ import axios from "axios";
 export default createStore({
   state: {
     users: [],
+    teste: ""
   },
   getters: {
     getUsers(state) {
@@ -14,10 +15,13 @@ export default createStore({
     SET_USERS(state, users) {
       state.users = users;
     },
+    SET_TESTE(state, users) {
+      state.teste = users;
+    },
   },
   actions: {
     async fetchUsers({ commit }, payload) {
-      console.log(payload);
+      console.log("fetchUsers: ", payload);
       await axios
         .get("https://jsonplaceholder.typicode.com/users")
         .then((response) => {
@@ -28,13 +32,13 @@ export default createStore({
           }
         });
     },
-    async fetchTest(payload) {
-      console.log(payload);
+    async fetchTest({ commit }, payload) {
+      console.log("fetchTest: ", payload);
       await axios
         .get("https://jsonplaceholder.typicode.com/posts")
         .then((response) => {
           if (response.status === 200) {
-            console.log(response.data)
+            commit("SET_TESTE", response.data);
           } else {
             console.error(response.error);
           }
